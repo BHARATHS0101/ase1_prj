@@ -60,10 +60,23 @@ class Question(models.Model):
                                          )
     description = models.TextField(verbose_name="Description")
 
-    categories = models.ManyToManyField(verbose_name="Categories",
-                                      to=Category,
-                                      blank=True
-                                      )
+
+    input_format = models.TextField(verbose_name="Input format", null= 'True')
+
+    constraints = models.TextField(verbose_name="Constraints", null= 'True')
+
+    output_format = models.TextField(verbose_name="Output format", null= 'True')
+
+    sample_input = models.TextField(verbose_name="Sample input", null= 'True')
+
+    sample_output = models.TextField(verbose_name="Sample output", null= 'True')
+
+    category = models.ForeignKey(verbose_name="Category",
+                                 to=Category,
+                                 null=True,
+                                 blank=True,
+                                 on_delete=models.CASCADE
+                                 )
 
     time_limit = models.FloatField(verbose_name="Time Limit",
                                    default=2.0,
@@ -236,6 +249,7 @@ class Result(models.Model):
 
     class Meta:
         unique_together = ['testcase', 'submission']
+        ordering = ['submission', 'testcase']
 
     STATUS_DICT = {0: 'Unknown Result', 1: 'Correct Answer', 2: 'Timeout', 3: 'Runtime Error', 4: 'Wrong Answer',
                    5: 'In progress'}

@@ -18,7 +18,8 @@ class QuestionAdmin(admin.ModelAdmin):
     def authorusername(self, obj):
         return obj.author.username
 
-    list_display = ['title', 'unique_code', 'authorusername', 'time_limit']
+    list_display = ['title', 'unique_code', 'authorusername', 'time_limit',
+                     'input_format', 'constraints', 'output_format', 'sample_input', 'sample_output']
     sortable_by = ['time_limit', 'title']
     search_fields = ['title', 'author__username', 'unique_code']
 
@@ -110,7 +111,7 @@ class ResultAdmin(admin.ModelAdmin):
 
     list_display = ['id', 'username', 'questionname', 'questionid', 'submissionid', 'result_status']
     list_filter = ['submission__user__username', 'submission__question__unique_code', 'submission__question__title',
-                   ResultStatusListFilter]
+                   ResultStatusListFilter, 'submission']
     sortable_by = ['id', 'username', 'questionname', 'questionid', 'result_status']
     search_fields = ['submission__user__username', 'submission__question__unique_code', 'submission__question__title']
 

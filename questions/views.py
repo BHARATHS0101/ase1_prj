@@ -41,6 +41,7 @@ def rerun_all_testcase_submissions(testcase):
     # TODO Send mail after all submissions have been re-run
     print("done!")
 
+
 @login_required
 def submit_solution(request, question_unique_id):
     # question
@@ -66,7 +67,7 @@ def submit_solution(request, question_unique_id):
 def submission_result(request, question_unique_id, submission_id):
     submission = get_object_or_404(Submission, id=submission_id)
 
-    return render(request, "questions/submission_result.html", {"submission": submission})
+    return render(request, "questions/results.html", {"submission": submission})
 
 
 def ajax_get_submission_results(request):
@@ -87,6 +88,15 @@ def ajax_get_submission_results(request):
     else:
         raise Http404("Invalid request!")
 
+
+
+def browse_questions(request):
+    return render(request, "questions/browsequestions3.html")
+
+def view_the_question(request, question_unique_id):
+    question = get_object_or_404(Question, unique_code=question_unique_id)
+    
+    return render(request, "questions/viewing_the_question.html", {"question":question})
 
 @login_required
 def create_testcase(request, question_unique_id):
